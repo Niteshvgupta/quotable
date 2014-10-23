@@ -10,37 +10,39 @@ var $source = null;
 var $quote = null;
 var $logo_wrapper = null;
 
+
 var quotes = [
     {
-        "quote": "I'd been drinking.",
-        "source": "Dennis Rodman"
+        "quote": "Go to Heaven for the climate, Hell for the company.",
+        "source": "Mark Twain",
+        "size": 60
     },
     {
         "quote": "I've made a huge mistake.",
-        "source": "G.O.B."
+        "source": "G.O.B.",
+        "size": 60
     },
     {
-        "quote": "Yes, I have smoked crack cocaine",
-        "source": "Toronto Mayor Rob Ford",
-        "size": 65
+        "quote": "Well, Art is Art, isn't it? Still, on the other hand, water is water. And east is east and west is west and if you take cranberries and stew them like applesauce they taste much more like prunes than rhubarb does. Now you tell me what you know.",
+        "source": "Groucho Marx",
+        "size": 30
     },
     {
-        "quote": "Annyong.",
-        "source": "Annyong",
-        "size": 90
+        "quote": "My fake plants died because I did not pretend to water them.",
+        "source": "Mitch Hedberg",
+        "size": 44
     },
     {
-        "quote": "STEVE HOLT!",
-        "source": "Steve Holt",
-        "size": 65
+        "quote": "I love deadlines. I like the whooshing sound they make as they fly by.",
+        "source": "Douglas Adams",
+        "size": 44
     },
     {
-        "quote": "Whoa, whoa, whoa. There's still plenty of meat on that bone. Now you take this home, throw it in a pot, add some broth, a potato. Baby, you've got a stew going.",
-        "source": "Carl Weathers",
-        "size": 40
+        "quote": "Don't trust everything you read on the internets.",
+        "source": "Abraham Lincoln",
+        "size": 60
     }
 ];
-
 
 // Change straight quotes to curly and double hyphens to em-dashes.
 function smarten(a) {
@@ -135,7 +137,7 @@ $(function(){
     $theme_buttons.on('click', function(){
         $theme_buttons.removeClass().addClass('btn btn-default');
         $(this).addClass('btn-primary');
-        $poster.removeClass('poster-news poster-music poster-fresh-air poster-snap-judgement')
+        $poster.removeClass('poster-cognoscenti poster-commonhealth poster-hereandnow poster-npr poster-onlyagame poster-onpoint poster-radioboston poster-wbur')
                     .addClass('poster-' + $(this).attr('id'));
     });
 
