@@ -19,6 +19,7 @@ pycrypto==2.6
 python-dateutil==2.2
 requests==1.1.0
 rsa==3.1.2
+s3cmd
 six==1.5.2
 slimit==0.7.4
 ssh==1.7.14

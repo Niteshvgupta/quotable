@@ -133,29 +133,10 @@ Changes to deployment requires a full-stack test. Deployment
 has two primary functions: Pushing flat files to S3 and deploying
 code to a remote server if required.
 """
-def _deploy_to_file_server(path='www'):
-    local('rm -rf %s/live-data' % path)
-    local('rm -rf %s/sitemap.xml' % path)
 
-    local('rsync -vr %s/ root@%s:/var/www/%s' % (path, app_config.FILE_SERVER, app_config.PROJECT_SLUG))
+def _deploy_to_s3(path='www'):
 
-def assets_down(path='www/assets'):
-    """
-    Download assets folder from s3 to www/assets
-    """
-    local('aws s3 sync s3://%s/%s/ %s/ --acl "public-read" --cache-control "max-age=5" --region "us-east-1"' % (app_config.ASSETS_S3_BUCKET, app_config.PROJECT_SLUG, path))
-
-def assets_up(path='www/assets'):
-    """
-    Upload www/assets folder to s3
-    """
-    _confirm("You are about to replace the copy of the folder on the server with your own copy. Are you sure?")
-
-    local('aws s3 sync %s/ s3://%s/%s/ --acl "public-read" --cache-control "max-age=5" --region "us-east-1" --delete' % (
-            path,
-            app_config.ASSETS_S3_BUCKET,
-            app_config.PROJECT_SLUG
-        ))
+    local('s3cmd put %s/ --recursive --acl-public s3://%s/%s/' % (path, app_config.S3_BUCKET, app_config.PROJECT_SLUG))
 
 def assets_rm(path):
     """
@@ -190,24 +171,5 @@ def deploy(remote='origin'):
     Deploy the latest app.
     """
     render()
-    _deploy_to_file_server()
+    _deploy_to_s3()
 
-"""
-Destruction
-
-Changes to destruction require setup/deploy to a test host in order to test.
-Destruction should remove all files related to the project from both a remote
-host and S3.
-"""
-def _confirm(message):
-    answer = prompt(message, default="Not at all")
-
-    if answer.lower() not in ('y', 'yes', 'buzz off', 'screw you'):
-        exit()
-
-def shiva_the_destroyer():
-    """
-    Deletes the app from s3
-    """
-    # TODO: not updated for file_server
-    pass
